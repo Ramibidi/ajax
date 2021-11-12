@@ -1,0 +1,21 @@
+{% extends "base.html.twig" %}
+{% block title %}Register{% endblock %}
+{% block body %}
+<h1>Welcome to our register page </h1>
+{{ form_start(form) }}
+{{ form_widget(form) }}
+<button type="submit" name="submit_button" id="submit_button">Register</button>
+<div id="display"> </div>
+{{ form_end(form) }}
+
+<h1>list of users</h1>
+{% for key in users %}
+<table width="50%" border="1" cellspacing="1" cellpadding="5">
+
+    <tr>
+       <td>{{ key.username|e }}</td>
+       <td>{{ key.email|e }}</td>
+   </tr>
+</table>
+{% endfor %}
+{% endblock %}

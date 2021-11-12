@@ -1,0 +1,61 @@
+{% extends 'base.html.twig' %}
+{% block javascripts %}
+<script language="javascript" src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+
+<script language="javascript">
+    $(document).ready(function () {
+        //$("#loaduser").on("click", function (event) {
+        $.ajax({
+            url: '/user/ajax',
+            type: 'POST',
+            dataType: 'json',
+            async: true,
+
+            success: function (data, status) {
+                var e = $('<tr><th>Name</th><th>Address</th></tr>');
+                $('#user').html('');
+                $('#user').append(e);
+
+                for (i = 0; i < data.length; i++) {
+                    user = data[i];
+                    var e = $('<tr><td id = "username"></td><td id = "email"></td></tr>');
+
+                    $('#username', e).html(user['username']);
+                    $('#email', e).html(user['email']);
+                    $('#user').append(e);
+                }
+            },
+            error: function (xhr, textStatus, errorThrown) {
+                alert('Ajax request failed.');
+            }
+        });
+    });
+
+</script>
+{% endblock %}
+
+{% block stylesheets %}
+<style>
+    .table {
+        border-collapse: collapse;
+    }
+
+    .table th,
+    td {
+        border-bottom: 1px solid #ddd;
+        width: 250px;
+        text-align: left;
+        align: left;
+    }
+</style>
+{% endblock %}
+
+{% block body %}
+
+</br>
+</br>
+
+<table class="table">
+    <tbody id="user"></tbody>
+</table>
+{% endblock %}
